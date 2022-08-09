@@ -9,6 +9,6 @@ A repository covering Flutter basics
 - Only one code base
 - Good layout methodology borrowed from responsive web
 - Very smooth and quick experience when running apps
-- Works 'Dart', which is a really easy language to pick up
+- Works on 'Dart', which is a really easy language to pick up
 - Uses Material Design out-of-the-box
 - Great docs & guides on the flutter website
