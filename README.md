@@ -91,14 +91,20 @@ A repository covering Flutter basics
       print(userOne.username);
       //print(userOne.userage);
 
-      User userTow = User('I', 26);
-      print(userTow.username);
-      //print(userTow.userage);
+      User userTwo = User('I', 26);
+      print(userTwo.username);
+      //print(userTwo.userage);
+
+      ProUser userThree = ProUser('AB', 21);
+      print(userThree.username);
+      userThree.publish();
+      userThree.login();
     }
 
     class User {
-      String username;
-      int age;
+
+      String username='';
+      int age=0;
 
       User(String username, int age) {
         this.username = username;
@@ -108,9 +114,21 @@ A repository covering Flutter basics
       void login() {
         print('user logged in');
       }
+
     }
 
+    class ProUser extends User {
+      void publish() {
+        print('published update');
+      }
+    }
     
+  #### Expected Output:
+  DK<br>
+  I<br>
+  AB<br>
+  published update<br>
+  user loged in
 
 
 
