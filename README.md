@@ -35,13 +35,12 @@ A repository covering Flutter basics
 - Can't change variable value
 
 ### Examplary Dart Code for Functions:
-<br>
 
 - For returning single value 
 
 - Both does same work
 
-Long Method:
+#### Long Method:
 
     void main() {
       print('something');
@@ -59,7 +58,7 @@ Long Method:
       return 30;
     } 
 
-Short and Better Method:
+#### Short and Better Method:
 
     void main() {
       print('something');
