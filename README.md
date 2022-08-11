@@ -29,7 +29,7 @@ A repository covering Flutter basics
 - bool (true/false)
 - dynamic (used for any data type)
 
-### Note:
+#### Note:
 - Can't change variable type
 
 - Can't change variable value
