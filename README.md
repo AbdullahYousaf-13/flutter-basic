@@ -72,11 +72,7 @@ A repository covering Flutter basics
 
     int getAge() => 30; 
 
-<br>
-
 ### Examplary Dart Code for Lists:
-<br>
-
 
     void main () {
       List<Sting> names = ['D-K', 'A-Y', 'W-Y'];
