@@ -30,113 +30,98 @@ A repository covering Flutter basics
 - dynamic (used for any data type)
 
 #### Note:
-- Can't change variable type
 
+- Can't change variable type
 - Can't change variable value
 
 ## Codes:
 
 ### Examplary Dart Code for Functions:
 
-- For returning single value 
-
+- For returning single value
 - Both does same work
 
 #### Long Method:
 
-    void main() {
-      print('something');
-      String great = greeting();
-      int age = getAge();
-      print (age);
-      print (great);
-    }
+void main() {
+  print('something');
+  String great = greeting();
+  int age = getAge();
+  print (age);
+  print (great);
+}
 
-    String greeting() {
-      return 'hello';
-    }
+String greeting() {
+  return 'hello';
+}
 
-    int getAge() {
-      return 30;
-    } 
-
+int getAge() {
+  return 30;
+} 
 #### Short and Better Method:
 
-    void main() {
-      print('something');
-      String great = greeting();
-      int age = getAge();
-      print (age);
-      print (great);
-    }
+void main() {
+  print('something');
+  String great = greeting();
+  int age = getAge();
+  print (age);
+  print (great);
+}
 
-    String greeting() => 'hello';
+String greeting() => 'hello';
 
-    int getAge() => 30; 
+int getAge() => 30; 
+### Exemplary Dart Code for Lists:
 
-### Examplary Dart Code for Lists:
+void main () {
+  List<Sting> names = ['D-K', 'A-Y', 'W-Y'];
+  names.add('R-2');
+  names.remove('D-K');
 
-    void main () {
-      List<Sting> names = ['D-K', 'A-Y', 'W-Y'];
-      names.add('R-2');
-      names.remove('D-K');
+  print(names);
+}
+### Exemplary Dart Code for Classes:
 
-      print(names);
-    }
+void main() {
+  User userOne = User('DK', 20);
+  print(userOne.username);
+  //print(userOne.userage);
 
-### Examplary Dart Code for Classes:
+  User userTwo = User('I', 26);
+  print(userTwo.username);
+  //print(userTwo.userage);
 
-    void main() {
-      User userOne = User('DK', 20);
-      print(userOne.username);
-      //print(userOne.userage);
+  ProUser userThree = ProUser('AB', 21);
+  print(userThree.username);
+  userThree.publish();
+  userThree.login();
+}
 
-      User userTwo = User('I', 26);
-      print(userTwo.username);
-      //print(userTwo.userage);
+class User {
 
-      ProUser userThree = ProUser('AB', 21);
-      print(userThree.username);
-      userThree.publish();
-      userThree.login();
-    }
+  String username='';
+  int age=0;
 
-    class User {
+  User(String username, int age) {
+    this.username = username;
+    this.age = age;
+  }
 
-      String username='';
-      int age=0;
+  void login() {
+    print('user logged in');
+  }
 
-      User(String username, int age) {
-        this.username = username;
-        this.age = age;
-      }
+}
 
-      void login() {
-        print('user logged in');
-      }
+class ProUser extends User {
+  void publish() {
+    print('published update');
+  }
+}
+#### Expected Output:
 
-    }
-
-    class ProUser extends User {
-      void publish() {
-        print('published update');
-      }
-    }
-    
-  #### Expected Output:
-  DK<br>
-  I<br>
-  AB<br>
-  published update<br>
-  user loged in
-
-
-
-
-
-
-
-
-
-
-
+DK<br>
+I<br>
+AB<br>
+published update<br>
+user loged in
