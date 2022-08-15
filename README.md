@@ -1,7 +1,8 @@
 # Flutter Basics
-
+ 
 A repository covering Flutter basics
 
+## What is Flutter:
 - Mobile UI framework for creating native apps for IOS & Android
 - Single code-base (dart) means we only have to write our app once for multiple devices
 
@@ -15,8 +16,6 @@ A repository covering Flutter basics
 - Great docs & guides on the flutter website
 
 ## Some Flutter Widgets:
---Widgets are just classes
-
 - Text Widget
 - Button Widget
 - Row Widget
@@ -35,7 +34,58 @@ A repository covering Flutter basics
 - Can't change variable type
 - Can't change variable value
 
+## Flutter Basics:
+- Widgets are just classes
+- Widgets always starts with the capital letter and new word also starts with capital the letter
+- Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
+
 ## Codes:
+
+### My Dart Code with Explanation:
+    import 'package:flutter/material.dart';
+
+
+    void main() => runApp(MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('my first app'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Text('helo niggas'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Text('click'),
+        ) 
+      ),
+    ));
+
+- `MaterialApp(),` (rapper for the rest of our code)
+
+- `home:` (specifies what is going to be on the home screen)
+
+- `scaffold(),` (used for a basic layout)
+
+- `appBar` (property, specifies how our app bar is gonna look)
+
+- `AppBar(),` (in-built widget or value of the property `appBar`)
+
+- `title:` (text on the title bar)
+
+- `Text(''),` (text widget, used to output some text)
+
+- `center title: true,` (property, alligns text to center) 
+
+- `body:` (property, specifies content inside the body)
+
+- `Center(),` (widget, centralizes whatever is in it)
+
+- `child:` (property, to nest something directly inside a widget)
+
+- `floatingActionButton:` (places a floating action button at bottom right corner)
+
+- `FloatingActionButton(),` (widget, how we react to user pressing that button)
+
 
 ### Examplary Dart Code for Functions:
 
@@ -257,7 +307,7 @@ A repository covering Flutter basics
       runApp //(function that starts our app)(const MyApp() //(the root widget of our app) ); 
     }
 
-    class MyApp extends StatelessWidget //(defining root widget) {
+    class MyApp extends StatelessWidget //(wrapper, defining root widget) {
       const MyApp({Key? key}) : super(key: key);
 
       // This widget is the root of your application.
@@ -368,3 +418,25 @@ A repository covering Flutter basics
     }
 
 
+### My Dart Code with Explanation:
+    import 'package:flutter/material.dart';
+
+
+    void main() => runApp(MaterialApp(
+      home: Scaffold(
+        appBar: AppBar()
+      ),
+    ));
+
+
+- `MaterialApp()`: rapper for the rest of our code
+
+- `home`: specifies what is going to be on the home screen
+
+- `Text()`: text widget decleared
+
+- `scaffold()`: used for a basic layout
+
+- `appBar`: property, specifies how our app bar is gonna look
+
+- `AppBar()`: in-built widget, value of the property `appBar`
