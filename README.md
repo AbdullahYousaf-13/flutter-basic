@@ -158,22 +158,22 @@ letter and new word also starts with capital the letter
 
   - This code will appear:
 
-    `class  extends StatelessWidget {
-      const ({Key? key}) : super(key: key);
-      @override
-      Widget build(BuildContext context) {
-        return Container();
-      }
-    }` 
+        class  extends StatelessWidget {
+          const ({Key? key}) : super(key: key);
+          @override
+          Widget build(BuildContext context) {
+            return Container();
+          }
+        } 
 
   - Change that code like this:
 
-    `class [class-name] extends StatelessWidget {
-      @override
-      Widget build(BuildContext context) {
-        return [code];
-      }
-    }`
+        class [class-name] extends StatelessWidget {
+          @override
+          Widget build(BuildContext context) {
+            return [code];
+          }
+        }
 
 - `@override` (overrides the previous code)
 
