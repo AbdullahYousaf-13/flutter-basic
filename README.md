@@ -4,63 +4,110 @@ A repository covering Flutter basics
 
 ## What is Flutter:
 - Mobile UI framework for creating native apps for IOS & Android
+
 - Single code-base (dart) means we only have to write our app once for multiple devices
 
 ## Why use Flutter:
 
 - Only one code base
+
 - Good layout methodology borrowed from responsive web
+
 - Very smooth and quick experience when running apps
+
 - Works on 'Dart', which is a really easy language to pick up
+
 - Uses Material Design out-of-the-box
+
 - Great docs & guides on the flutter website
 
 ## Some Flutter Widgets:
 - Text Widget
+
 - Button Widget
+
 - Row Widget
+
 - Column Widget
+
 - Image Widget
 
 ## Variables in Dart:
 
 - int (numeric value)
+
 - string ()
+
 - bool (true/false)
+
 - dynamic (used for any data type)
 
 #### Note:
 
 - Can't change variable type
+
 - Can't change variable value
 
 ## Flutter Basics:
 - Widgets are just classes
-- Widgets always starts with the capital letter and new word also starts with capital the letter
+
+- Widgets always starts with the capital 
+letter and new word also starts with capital the letter
+
+- Stateless Widget: the state of widget that cannot change over time, eg: state 
+
+- Stateful Widget: the state of widget that can change over time, eg: data, counters
+
 - Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
+
+- Put semi-colonm at the end of the return function
 
 ## Codes:
 
 ### My Dart Code with Explanation:
+
+#### Code:
+
     import 'package:flutter/material.dart';
 
 
     void main() => runApp(MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('my first app'),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Text('helo niggas'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Text('click'),
-        ) 
-      ),
+      home: Home()
     ));
 
-- `MaterialApp(),` (rapper for the rest of our code)
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+        appBar: AppBar(
+        title: Text('my first app'),
+        centerTitle: true,
+        backgroundColor: Colors.red[900],
+        ),
+        body: Center(
+        child: Text(
+        'helo niggas!',
+        style: TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey[600],
+        fontFamily: 'RubikMaze',
+        ),
+        ),
+
+        ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        child: Text('click'),
+        backgroundColor: Colors.red[900],
+      ),
+      );
+      }
+    }
+
+#### Explanation:
+
+- `MaterialApp(),` (wrapper for the rest of our code)
 
 - `home:` (specifies what is going to be on the home screen)
 
@@ -74,7 +121,7 @@ A repository covering Flutter basics
 
 - `Text(''),` (text widget, used to output some text)
 
-- `center title: true,` (property, alligns text to center) 
+- `centerTitle: true,` (property, alligns text to center) 
 
 - `body:` (property, specifies content inside the body)
 
@@ -82,10 +129,53 @@ A repository covering Flutter basics
 
 - `child:` (property, to nest something directly inside a widget)
 
-- `floatingActionButton:` (places a floating action button at bottom right corner)
+- `floatingActionButton:` (property, places a floating action button at bottom right corner)
 
 - `FloatingActionButton(),` (widget, how we react to user pressing that button)
 
+- `onPressed: () {},` (property, tells what happens on pressing the button)
+
+- `backgroundColor:` (property, sets background color)  
+- `Colors.red`(color-name)`[20],`(shade-value) (value/widget, material design color, ctrl+q to se all shades)
+
+- `style:` (property, allows us to style text in different ways)
+
+- `TextStyle (),` (widget, inside this we can add different properties, ctrl+q to see all properties)
+
+- `fontSize: 20,`(size-value) (property, defines font size)
+
+- `fontWeight: FontWeight` (font-name) `.bold,` (property-name)
+
+- `letterSpacing: 2,`(space-value) (property)
+
+- `color:`(property) `Colors.grey`(color-name) `[900]`(shade-value)
+
+- To change font open file 'pubspec.yaml', go to the fonts section in the file and change family name in accordance with your font name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path name of your font like: (`fonts/[font-name]-Regular.ttf`), then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular font
+
+- `fontFamily:`(property) `'RubikMaze'`(font-name) (applies a font to the text)
+
+- To add a hot reload use stateless widget, wrirte 'stless' and click on the 'stless' 
+
+  - This code will appear:
+
+    `class  extends StatelessWidget {
+      const ({Key? key}) : super(key: key);
+      @override
+      Widget build(BuildContext context) {
+        return Container();
+      }
+    }` 
+
+  - Change that code like this:
+
+    `class [class-name] extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return [code];
+      }
+    }`
+
+- `@override` (overrides the previous code)
 
 ### Examplary Dart Code for Functions:
 
