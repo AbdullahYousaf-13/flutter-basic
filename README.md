@@ -62,48 +62,43 @@ letter and new word also starts with capital the letter
 
 - Put semi-colonm at the end of the return function
 
-## Codes:
+## My Dart Codes with Explanation:
 
-### My Dart Code with Explanation:
-
-#### Code:
+### Code for Text:
 
     import 'package:flutter/material.dart';
 
-
-    void main() => runApp(MaterialApp(
-      home: Home()
-    ));
+    void main() => runApp(MaterialApp(home: Home()));
 
     class Home extends StatelessWidget {
       @override
       Widget build(BuildContext context) {
         return Scaffold(
-        appBar: AppBar(
-        title: Text('my first app'),
-        centerTitle: true,
-        backgroundColor: Colors.red[900],
-        ),
-        body: Center(
-        child: Text(
-        'helo niggas!',
-        style: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.bold,
-        color: Colors.grey[600],
-        fontFamily: 'RubikMaze',
-        ),
-        ),
-
-        ),
-        floatingActionButton: FloatingActionButton(
-        onPressed: null,
-        child: Text('click'),
-        backgroundColor: Colors.red[900],
-      ),
-      );
+          appBar: AppBar(
+            title: Text('my first app'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: Text(
+              'helo niggas!',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[600],
+                fontFamily: 'RubikMaze',
+              ),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
       }
     }
+
 
 #### Explanation:
 
@@ -150,7 +145,7 @@ letter and new word also starts with capital the letter
 
 - `color:`(property) `Colors.grey`(color-name) `[900]`(shade-value)
 
-- To change font open file 'pubspec.yaml', go to the fonts section in the file and change family name in accordance with your font name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path name of your font like: (`fonts/[font-name]-Regular.ttf`), then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular font
+- To change font open file 'pubspec.yaml', go to the fonts section in the file uncomment itand change family name in accordance with your font name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path name of your font like: (`fonts/[font-name]-Regular.ttf`), for multiple fonts give path of your fonts like (`fonts/`) then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular font
 
 - `fontFamily:`(property) `'RubikMaze'`(font-name) (applies a font to the text)
 
@@ -176,6 +171,64 @@ letter and new word also starts with capital the letter
         }
 
 - `@override` (overrides the previous code)
+
+### Code for Images:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: Image(
+              image: AssetImage('assets/1609926302117.png'),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `Image (),` (widget)
+
+  - `image:` (property)
+
+    - `NetworkImage('[image-url]'),` (To get network image showing on our app)
+
+or
+
+- `Image.network('image-path')`
+
+- `Image (),` (widget)
+
+    - `image:` (property)
+
+      - `AssetImage('[image-path]'),` (To get asset image showing on our app)
+
+or
+
+- `Image.asset('image-path')`
+
+- To add an image open file 'pubspec.yaml', go to the assets section in the file uncomment it, and change name in accordance with your image name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path of your image like: (`assets/[image-name].[file-extention]`), for multiple images give path of your images like (`assets/`) then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular image
+
+
+
+
+
 
 ### Examplary Dart Code for Functions:
 
