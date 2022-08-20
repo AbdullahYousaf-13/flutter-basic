@@ -9,21 +9,20 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text('My First App'),
         centerTitle: true,
-        backgroundColor: Colors.red[900],
+        backgroundColor: Colors.black,
       ),
-      body: Center(
-        child: IconButton(
-          onPressed: () {
-            print('You Clicked "Mail Icon" ');
-          },
-          icon: Icon(Icons.mail),
-          color: Colors.red[900],
-        ),
+      body: Container(
+        padding: EdgeInsets.all(100),
+        margin: EdgeInsets.symmetric(horizontal: 63, vertical: 233),
+        color: Colors.grey[900],
+        child: Text ('Hello'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          print('You Clicked Button "Click" ');
+        },
         child: Text('click'),
-        backgroundColor: Colors.red[900],
+        backgroundColor: Colors.black,
       ),
     );
   }
