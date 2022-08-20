@@ -1,11 +1,14 @@
-# Flutter Basics
- 
+# Flutter Basics:
 A repository covering Flutter basics
+
+- - -
 
 ## What is Flutter:
 - Mobile UI framework for creating native apps for IOS & Android
 
 - Single code-base (dart) means we only have to write our app once for multiple devices
+
+- - -
 
 ## Why use Flutter:
 
@@ -21,6 +24,8 @@ A repository covering Flutter basics
 
 - Great docs & guides on the flutter website
 
+- - -
+
 ## Some Flutter Widgets:
 - Text Widget
 
@@ -31,6 +36,8 @@ A repository covering Flutter basics
 - Column Widget
 
 - Image Widget
+
+- - -
 
 ## Variables in Dart:
 
@@ -48,6 +55,8 @@ A repository covering Flutter basics
 
 - Can't change variable value
 
+- - -
+
 ## Flutter Basics:
 - Widgets are just classes
 
@@ -61,6 +70,9 @@ letter and new word also starts with capital the letter
 - Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
 
 - Put semi-colonm at the end of the return function
+
+- - -
+- - -
 
 ## My Dart Codes with Explanation:
 
@@ -98,7 +110,6 @@ letter and new word also starts with capital the letter
         );
       }
     }
-
 
 #### Explanation:
 
@@ -172,6 +183,8 @@ letter and new word also starts with capital the letter
 
 - `@override` (overrides the previous code)
 
+- - -
+
 ### Code for Images:
 
     import 'package:flutter/material.dart';
@@ -203,7 +216,6 @@ letter and new word also starts with capital the letter
 
 #### Explanation:
 
-
 - `Image (),` (widget)
 
   - `image:` (property)
@@ -226,10 +238,206 @@ or
 
 - To add an image open file 'pubspec.yaml', go to the assets section in the file uncomment it, and change name in accordance with your image name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path of your image like: (`assets/[image-name].[file-extention]`), for multiple images give path of your images like (`assets/`) then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular image
 
+- - -
+
+### Code for Icons:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: Icon(
+              Icons.airport_shuttle,
+              color: Colors.red[900],
+              size: 100,
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `Icon(),`(widget)
+  - `Icons.[icon-name]`
+
+- `size:`(property) `100,`(size)
+
+ ### Code for Buttons:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: RaisedButton(
+                onPressed: () {
+                  print('You Clicked Me');
+                },
+                child: Text('Click Me'),
+                color: Colors.red[900],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+##### Raised Button:
+
+- `RaisedButton(),` (adds a button that sits away from the screen, have a shadow)
+
+  - `onPressed:`(property) `()` `{},`(value, tells what do do on pressing the button) eg: print('You Clicked Me');
+
+  - `child:` (property, used whenever we have to nest a widget inside another widget)
+    
+    - `Text('click me'),`
+
+##### Flat Button:
+
+- `FlatButton(),` (adds a flat button, no shadow)
+
+### Code for Icon in a Button:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: RaisedButton.icon(
+              onPressed: () {
+                print('You Clicked "Mail Me" ');
+              },
+              icon: Icon(
+                Icons.mail
+              ),
+              label: Text('Mail Me'),
+              color: Colors.red[900],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `RaisedButton.icon (),` (creates an icon button)
+
+  - `onpressed: () {},`
+
+  - `icon:`(property)
+
+    - `Icon(),` (widget)
+
+      - `Icons.[icon-name]`
+
+  - `label:` (property)
+
+    `Text('[text]'),`
+
+  - `color:`(property)
+
+    - `Colors.[color-name][[color-shade]],`
+
+### Code for Button in an Icon:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.red[900],
+          ),
+          body: Center(
+            child: IconButton(
+              onPressed: () {
+                print('You Clicked "Mail Icon" ');
+              },
+              icon: Icon(Icons.mail),
+              color: Colors.red[900],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: null,
+            child: Text('click'),
+            backgroundColor: Colors.red[900],
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `IconButton(),`
+
+  - `onpressed: () {},`
+
+  - `icon:`(property)
+
+    - `Icon(),` (widget)
+
+      - `Icons.[icon-name]`
+
+  - `color:`(property)
+
+    - `Colors.[color-name][[color-shade]],`
 
 
 
 
+
+- - -
+- - -
 
 ### Examplary Dart Code for Functions:
 
@@ -265,7 +473,10 @@ or
 
     String greeting() => 'hello';
 
-    int getAge() => 30; 
+    int getAge() => 30;
+
+- - -
+
 ### Exemplary Dart Code for Lists:
 
     void main () {
@@ -275,6 +486,9 @@ or
 
       print(names);
     }
+
+- - -
+
 ### Exemplary Dart Code for Classes:
 
     void main() {
@@ -321,6 +535,9 @@ or
     AB
     published update
     user loged in
+
+- - -
+- - -
 
 ## Dart Basic App:
 
@@ -561,6 +778,7 @@ or
       }
     }
 
+- - -
 
 ### My Dart Code with Explanation:
     import 'package:flutter/material.dart';
@@ -571,16 +789,5 @@ or
         appBar: AppBar()
       ),
     ));
-
-
-- `MaterialApp()`: rapper for the rest of our code
-
-- `home`: specifies what is going to be on the home screen
-
-- `Text()`: text widget decleared
-
-- `scaffold()`: used for a basic layout
-
-- `appBar`: property, specifies how our app bar is gonna look
-
-- `AppBar()`: in-built widget, value of the property `appBar`
+- - -
+- - -
