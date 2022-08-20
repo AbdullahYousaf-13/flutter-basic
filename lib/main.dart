@@ -13,9 +13,13 @@ class Home extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.all(100),
-        margin: EdgeInsets.symmetric(horizontal: 63, vertical: 233),
+        margin: EdgeInsets.all(40),
         color: Colors.grey[900],
+        child: RaisedButton (onPressed: () {
+          print('You Clicked Button "Hello" ');
+        },
         child: Text ('Hello'),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -369,7 +369,7 @@ or
 
 #### Explanation:
 
-- `RaisedButton.icon (),` (creates an icon button)
+- `RaisedButton.icon (),` (creates an icon in a button)
 
   - `onpressed: () {},`
 
@@ -426,7 +426,7 @@ or
 
 #### Explanation:
 
-- `IconButton(),`
+- `IconButton(),` (creates a button in an icon)
 
   - `onpressed: () {},`
 
