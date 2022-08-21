@@ -389,7 +389,7 @@ or
 
 - - -
 
-### Code for Button in an Icon:
+### Code for Buttons in an Icons:
 
     import 'package:flutter/material.dart';
 
@@ -442,7 +442,7 @@ or
 
 - - -
 
-### Code for Containers, Padding and Margins:
+### Code for Containers, Paddings and Margins:
 
     import 'package:flutter/material.dart';
 
@@ -491,6 +491,135 @@ or
     - `Colors.[color-name][[color-shade]],`
 
   - `child: Text('[text]')` (container restricts itsself to the size of the child widget)
+
+- - -
+
+### Code for Rows:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: Text('Hello World ==>'),
+                padding: EdgeInsets.all(30),
+                color: Colors.grey[900],
+              ),
+              RaisedButton(
+                onPressed: () {},
+                color: Colors.blueGrey[900],
+                padding: EdgeInsets.all(30),
+                child: Text('Click Me'),
+              ),
+              Container(
+                color: Colors.grey[900],
+                padding: EdgeInsets.all(30),
+                child: Text('<== Hello World'),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              print('You Clicked Button "Click" ');
+            },
+            child: Text('click'),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `Row(),` (creates a row)
+
+  - `mainAxisAlignment:` (horizontal, tells how the widgets are alligned on the main axis)
+
+    - `MainAxisAlignment.spaceEvenly,`[alignment-name]
+
+  - `crossAxisAlignment:` (vertical, tells how the widgets are alligned on the cross axis)
+
+    - `CrossAxisAlignment.center,`[alignment-name]
+
+  - `children:` (used as we can have more then one property inside a row) `<widget>` (tells the items should be widgets) `[]` (list which contains the widgets)
+
+- - -
+
+#### Code for Columns:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(home: Home()));
+
+    class Home extends StatelessWidget {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('My First App'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: Text('Hello World ==>'),
+                padding: EdgeInsets.all(30),
+                color: Colors.grey[900],
+              ),
+              RaisedButton(
+                onPressed: () {},
+                color: Colors.blueGrey[900],
+                padding: EdgeInsets.all(30),
+                child: Text('Click Me'),
+              ),
+              Container(
+                color: Colors.grey[900],
+                padding: EdgeInsets.all(30),
+                child: Text('<== Hello World'),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              print('You Clicked Button "Click" ');
+            },
+            child: Text('click'),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `Column(),` (creates a row)
+
+  - `mainAxisAlignment:` (vertical, tells how the widgets are alligned on the main axis)
+
+    - `MainAxisAlignment.spaceEvenly,`[alignment-name]
+
+  - `crossAxisAlignment:` (horizontal, tells how the widgets are alligned on the cross axis)
+
+    - `CrossAxisAlignment.center,`[alignment-name]
+
+  - `children:` (used as we can have more then one property inside a row) `<widget>` (tells the items should be widgets) `[]` (list which contains the widgets)
+
 
 - - -
 - - -
