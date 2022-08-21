@@ -72,6 +72,14 @@ letter and new word also starts with capital the letter
 - Put semi-colonm at the end of the return function
 
 - - -
+
+### Shortcuts and Outlines:
+
+- Click on the widget you want to make amendents in then click on the action menu (the bulb sign)
+
+- Click on the 'Flutter Outline' menu on the right side of the screen, then you can make amendments in your code using the menu
+
+- - -
 - - -
 
 ## My Dart Codes with Explanation:
@@ -620,9 +628,10 @@ or
 
   - `children:` (used as we can have more then one property inside a row) `<widget>` (tells the items should be widgets) `[]` (list which contains the widgets)
 
+### Outline and Shortcuts:
 
 
-
+#### Explanation:
 
 - - -
 - - -
