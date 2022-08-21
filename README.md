@@ -405,7 +405,7 @@ or
 
 - - -
 
-### Code for Buttons in an Icons:
+### Code for Button in an Icon:
 
     import 'package:flutter/material.dart';
 
