@@ -621,6 +621,9 @@ or
   - `children:` (used as we can have more then one property inside a row) `<widget>` (tells the items should be widgets) `[]` (list which contains the widgets)
 
 
+
+
+
 - - -
 - - -
 
