@@ -49,7 +49,7 @@ A repository covering Flutter basics
 
 - dynamic (used for any data type)
 
-#### Note:
+### Note:
 
 - Can't change variable type
 
@@ -63,10 +63,6 @@ A repository covering Flutter basics
 
 - Widgets always starts with the capital 
 letter and new word also starts with capital the letter
-
-- Stateless Widget: the state of widget that cannot change over time, eg: state 
-
-- Stateful Widget: the state of widget that can change over time, eg: data, counters
 
 - Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
 
@@ -83,9 +79,11 @@ letter and new word also starts with capital the letter
 - - -
 - - -
 
-## My Dart Codes with Explanation:
+## My Dart Codes with Explanations:
 
-### Code for Text:
+### Text:
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -134,7 +132,9 @@ letter and new word also starts with capital the letter
 
 - `title:` (text on the title bar)
 
-- `Text(''),` (text widget, used to output some text)
+- `Text('[text]'),` (text widget, used to output some text)
+
+- `Text('$[variable name]')` (used to output variable)
 
 - `centerTitle: true,` (property, alligns text to center) 
 
@@ -157,7 +157,10 @@ letter and new word also starts with capital the letter
 
 - `onPressed: () {},` (property, tells what happens on pressing the button)
 
+- `setState(() {[value-update]});` (function, whenever we call setstates we increase or set the state of that widget inside here, it trigers the build function so that it rebiulds it with the new state)
+
 - `backgroundColor:` (property, sets background color)  
+
 - `Colors.red`(color-name)`[20],`(shade-value) (value/widget, material design color, ctrl+q to se all shades)
 
 - `style:` (property, allows us to style text in different ways)
@@ -201,7 +204,9 @@ letter and new word also starts with capital the letter
 
 - - -
 
-### Code for Images:
+### Images:
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -256,7 +261,11 @@ or
 
 - - -
 
-### Code for Icons:
+### Buttons and Icons: 
+
+#### Icons:
+
+##### Code:
 
     import 'package:flutter/material.dart';
 
@@ -287,7 +296,7 @@ or
       }
     }
 
-#### Explanation:
+##### Explanation:
 
 - `Icon(),`(widget)
   - `Icons.[icon-name]`
@@ -296,7 +305,9 @@ or
 
 - - -
 
- ### Code for Buttons:
+#### Buttons:
+
+##### Code:
 
     import 'package:flutter/material.dart';
 
@@ -329,9 +340,9 @@ or
       }
     }
 
-#### Explanation:
+##### Explanation:
 
-##### Raised Button:
+###### Raised Button:
 
 - `RaisedButton(),` (adds a button that sits away from the screen, have a shadow)
 
@@ -341,13 +352,15 @@ or
     
     - `Text('click me'),`
 
-##### Flat Button:
+###### Flat Button:
 
 - `FlatButton(),` (adds a flat button, no shadow)
 
 - - -
 
-### Code for Icon in a Button:
+#### Icon in a Button:
+
+##### Code:
 
     import 'package:flutter/material.dart';
 
@@ -383,7 +396,7 @@ or
       }
     }
 
-#### Explanation:
+##### Explanation:
 
 - `RaisedButton.icon (),` (creates an icon in a button)
 
@@ -405,7 +418,9 @@ or
 
 - - -
 
-### Code for Button in an Icon:
+#### Button in an Icon:
+
+##### Code:
 
     import 'package:flutter/material.dart';
 
@@ -440,7 +455,7 @@ or
       }
     }
 
-#### Explanation:
+##### Explanation:
 
 - `IconButton(),` (creates a button in an icon)
 
@@ -458,7 +473,9 @@ or
 
 - - -
 
-### Code for Containers, Paddings and Margins:
+### Containers, Paddings and Margins:
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -510,7 +527,9 @@ or
 
 - - -
 
-### Code for Rows:
+### Rows:
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -574,7 +593,9 @@ or
 
 - - -
 
-### Code for Columns:
+### Columns:
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -640,6 +661,8 @@ or
 
 ### Expanded Widgets:
 
+#### Code:
+
     import 'package:flutter/material.dart';
 
     void main() => runApp(MaterialApp(home: Home()));
@@ -701,10 +724,284 @@ or
 
   - `flex: [flex-value]` (assigns the portion that we want to take up)
 
+- - - 
+
+### Stateless Widget:
+
+#### Code:
+
+    import 'package:flutter/material.dart';
+
+        void main() => runApp(MaterialApp(
+          home: MyCard(),
+        ));
+
+        class MyCard extends StatelessWidget {
+          const MyCard({Key? key}) : super(key: key);
+
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+              backgroundColor: Colors.grey[900],
+              appBar: AppBar(
+                title: Text('My ID Card'),
+                centerTitle: true,
+                backgroundColor: Colors.grey[850],
+                elevation: 0,
+              ),
+              body: Padding(
+                padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget> [
+                    Center(
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('assets/Dark-Knight.png'),
+                        radius: 40,
+
+                      ),
+                    ),
+                    Divider(
+                      height: 90,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      'NAME',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      'Dark-Knight',
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        letterSpacing: 2,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
+                    Text(
+                      'CURRENT NINJA LEVEL',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      '8',
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        letterSpacing: 2,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
+                    Text(
+                      'CONTACT',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.email,
+                          color: Colors.blueGrey,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'abdullahyousaf132@gmail.com',
+                          style: TextStyle(
+                            color: Colors.blueGrey,
+                            letterSpacing: 1,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        }
+
+#### Explanation:
+
+- The state of widget that cannot change over time, eg: state
+  
+  Write 'stless' then press tab this code will appear 
+
+      class [widget-name] extends StatelessWidget {
+        const ({Key? key}) : super(key: key);
+
+        @override
+        Widget build(BuildContext context) {
+          return Container();
+        }
+      } 
+
+- - -
+
+### Stateful Widget:
+
+#### Code:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(
+      home: MyCard(),
+    ));
+
+    class MyCard extends StatefulWidget {
+      const MyCard({Key? key}) : super(key: key);
+      @override
+      State<MyCard> createState() => _MyCardState();
+    }
+
+    class _MyCardState extends State<MyCard> {
+
+      int ninjaLevel = 0;
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('My ID Card'),
+            centerTitle: true,
+            backgroundColor: Colors.grey[850],
+            elevation: 0,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                ninjaLevel += 1;
+              });
+            },
+            child: Icon(Icons.add),
+            backgroundColor: Colors.grey[800],
+          ),
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget> [
+                Center(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/Dark-Knight.png'),
+                    radius: 40,
+
+                  ),
+                ),
+                Divider(
+                  height: 90,
+                  color: Colors.grey,
+                ),
+                Text(
+                  'NAME',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  'Dark-Knight',
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    letterSpacing: 2,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Text(
+                  'CURRENT NINJA LEVEL',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  '$ninjaLevel',
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    letterSpacing: 2,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Text(
+                  'CONTACT',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.email,
+                      color: Colors.blueGrey,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'abdullahyousaf132@gmail.com',
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        letterSpacing: 1,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- The state of widget that can change over time, eg: data, counters
+
+  Write 'stful' then press tab this code will appear
+
+      class [widget-name] extends StatefulWidget {
+        const ({Key? key}) : super(key: key);
+
+        @override
+        State<> createState() => _State();
+      }
+
+      class _State extends State<> {
+        
+        @override
+        Widget build(BuildContext context) {
+          return Container();
+        }
+      }
+
+
+
 - - -
 - - -
 
-## My First App:
+## My First App "My ID Card":
 
 ### Code:
 
@@ -817,7 +1114,7 @@ or
 
 ## Examplary Codes:
 
-### Examplary Dart Code for Functions:
+### Functions:
 
 - For returning single value
 - Both does same work
@@ -855,7 +1152,7 @@ or
 
 - - -
 
-### Exemplary Dart Code for Lists:
+### Lists:
 
     void main () {
       List<Sting> names = ['D-K', 'A-Y', 'W-Y'];
@@ -867,7 +1164,7 @@ or
 
 - - -
 
-### Exemplary Dart Code for Classes:
+### Classes:
 
     void main() {
       User userOne = User('DK', 20);
