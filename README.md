@@ -1488,3 +1488,13 @@ or
 ### :
 #### Code:
 #### Explanation:
+
+# Frequently used Git Commands:
+E:
+cd Programming\Flutter\flutter-basic
+
+git add .
+git commit -m "Done till "
+git push origin main
+
+git status
