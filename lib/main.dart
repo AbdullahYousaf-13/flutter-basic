@@ -20,6 +20,35 @@ class _QouteListState extends State<QouteList> {
     Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
   ];
 
+  Widget quoteTemplete(quote){
+    return Card(
+      margin: EdgeInsets.all(16),
+      child: Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget> [
+            Text(
+              quote.text,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey[600],
+              ),
+            ),
+            SizedBox(height: 6),
+            Text(
+              quote.author,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey[800],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +59,7 @@ class _QouteListState extends State<QouteList> {
         backgroundColor: Colors.black,
       ),
       body: Column (
-        children: quotes.map((quote) => Text('${quote.text} - ${quote.author}')).toList(),
+        children: quotes.map((quote) => quoteTemplete(quote)).toList(),
       ),
     );
   }

@@ -142,6 +142,8 @@ letter and new word also starts with capital the letter
 
 - `elevation: [elevation-value]` (creates a drop shadow)
 
+- `Card ();` (creates a card)
+
 - `body:` (property, specifies content inside the body)
 
 - `Center(),` (widget, centralizes whatever is in it)
@@ -1138,6 +1140,22 @@ or
             Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
             Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
           ];
+
+### Functions:
+
+#### Code:
+
+
+
+#### Explanation:
+
+- Creating a function that is going to return a quote templete using card widget
+
+`Widget`(return type) `quoteTemplete`(function name) `(quote)`(individual quote)`{return Card`(returning a card widget)`()}`
+
+- - -
+
+
 
 - - -
 - - -
