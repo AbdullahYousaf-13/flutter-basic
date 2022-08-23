@@ -1145,13 +1145,80 @@ or
 
 #### Code:
 
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
 
+    void main() => runApp(MaterialApp(
+      home: QouteList(),
+    ));
+
+    class QouteList extends StatefulWidget {
+      const QouteList({Key? key}) : super(key: key);
+
+      @override
+      State<QouteList> createState() => _QouteListState();
+    }
+
+    class _QouteListState extends State<QouteList> {
+
+      List<Quote> quotes = [
+        Quote(author: 'Osca Wilde', text: 'I have nothing to declare except my genius'),
+        Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
+        Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
+      ];
+
+      Widget quoteTemplete(quote){
+        return Card(
+          margin: EdgeInsets.all(16),
+          child: Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget> [
+                Text(
+                  quote.text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  quote.author,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('Awesome Quotes'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column (
+            children: quotes.map((quote) => quoteTemplete(quote)).toList(),
+          ),
+        );
+      }
+    }
 
 #### Explanation:
 
 - Creating a function that is going to return a quote templete using card widget
 
 `Widget`(return type) `quoteTemplete`(function name) `(quote)`(individual quote)`{return Card`(returning a card widget)`()}`
+
+- `children: quotes.map((quote) => quoteTemplete(quote)).toList(),` (for each item in tha list its going to map through that, cycle through a bit then call function'quoteTemplete' and  return us that widget tree)
 
 - - -
 
@@ -1516,11 +1583,17 @@ or
 - - -
 
 # Frequently used Git Commands:
-E:
-cd Programming\Flutter\flutter-basic
 
-git add .
-git commit -m "Done till "
-git push origin main
+- E:
 
-git status
+- cd Programming\Flutter\flutter-basic
+
+
+- git add .
+
+- git commit -m "Done till "
+
+- git push origin main
+
+
+- git status
