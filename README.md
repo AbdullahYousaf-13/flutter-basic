@@ -8,6 +8,8 @@ A repository covering Flutter basics
 
 - Single code-base (dart) means we only have to write our app once for multiple devices
 
+- Uses dart as the the programing language
+
 - - -
 
 ## Why use Flutter:
@@ -23,6 +25,19 @@ A repository covering Flutter basics
 - Uses Material Design out-of-the-box
 
 - Great docs & guides on the flutter website
+
+- - -
+
+## Flutter Basics:
+
+- Widgets are just classes
+
+- Widgets always starts with the capital 
+letter and new word also starts with capital the letter
+
+- Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
+
+- Put semi-colonm at the end of the return function
 
 - - -
 
@@ -54,19 +69,6 @@ A repository covering Flutter basics
 - Can't change variable type
 
 - Can't change variable value
-
-- - -
-
-## Flutter Basics:
-
-- Widgets are just classes
-
-- Widgets always starts with the capital 
-letter and new word also starts with capital the letter
-
-- Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
-
-- Put semi-colonm at the end of the return function
 
 - - -
 
@@ -139,7 +141,6 @@ letter and new word also starts with capital the letter
 - `centerTitle: true,` (property, alligns text to center) 
 
 - `elevation: [elevation-value]` (creates a drop shadow)
-
 
 - `body:` (property, specifies content inside the body)
 
@@ -1001,6 +1002,146 @@ or
 - - -
 - - -
 
+### Lists of Data:
+
+#### Code:
+
+    import 'package:flutter/material.dart';
+
+    void main() => runApp(MaterialApp(
+      home: QouteList(),
+    ));
+
+    class QouteList extends StatefulWidget {
+      const QouteList({Key? key}) : super(key: key);
+
+      @override
+      State<QouteList> createState() => _QouteListState();
+    }
+
+    class _QouteListState extends State<QouteList> {
+
+      List<String> quotes = [
+        'I have nothing to declare except my genius',
+        'The truth is rarely pure and never simple',
+        'Be yourself; everybody is already taken'
+      ];
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('Awesome Quotes'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column (
+            children: quotes.map((quote) => Text(quote)).toList(),
+          ),
+        );
+      }
+    }
+
+
+#### Explanation:
+
+- `List<String`(data type)`>` `quotes`(variable name)`['[string-1]','[string-2]','[string-n]'];`
+
+- `children: quotes`(variable name)`.map((quote)`(parameter) ` => Text(quote);).toList(),` (takes each quote as it goes through it and output it to the screen)
+
+or
+
+- `children: quotes`(variable name)`.map((quote)`(parameter) `{return Text(quote);}).toList(),` (takes each quote as it goes through it and output it to the screen)
+
+- - -
+
+### Custom Classes:
+
+#### Code:
+
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
+
+    void main() => runApp(MaterialApp(
+      home: QouteList(),
+    ));
+
+    class QouteList extends StatefulWidget {
+      const QouteList({Key? key}) : super(key: key);
+
+      @override
+      State<QouteList> createState() => _QouteListState();
+    }
+
+    class _QouteListState extends State<QouteList> {
+
+      List<Quote> quotes = [
+        Quote(author: 'Osca Wilde', text: 'I have nothing to declare except my genius'),
+        Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
+        Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
+      ];
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('Awesome Quotes'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column (
+            children: quotes.map((quote) => Text('${quote.text} - ${quote.author}')).toList(),
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- Classes are used to seperate things into their own logical sections
+
+- To create a class go to 'lib' folder and create a new dart file, name it and then do this
+
+      class Quote {
+
+        String text;
+        String author;
+
+        Quote({required this.text, required this.author});
+
+      }
+
+  or
+
+      Class Quote {
+
+        String text; (property)
+        String author; (property)
+
+        Quote(String text, String author){
+          this.text = text;
+          this.author = author;
+        }
+
+      }
+
+      Quote myquote = Quote('this is the quote text', 'oscar wilde') (new quote)
+
+- Then write this `import 'quote.dart';` in 'main.dart' file to import 'quote.dart' file in 'main.dart' file
+
+ - Creating 'Quote' Objects in a list with two properties 'author' and 'text' each
+ 
+        List<Quote> quotes = [
+            Quote(author: 'Osca Wilde', text: 'I have nothing to declare except my genius'),
+            Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
+            Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
+          ];
+
+- - -
+
+
 ## My First App 'My ID Card':
 
 ### Code:
@@ -1113,6 +1254,14 @@ or
 - - -
 
 ## Examplary Codes:
+
+### Loops:
+
+    void main() {
+      for (int i = 0; i < 5; i++) {
+        print('hello ${i + 1}');
+      }
+    }
 
 ### Functions:
 
@@ -1334,3 +1483,8 @@ or
 
 - - -
 - - -
+
+# 
+### :
+#### Code:
+#### Explanation:
