@@ -1062,6 +1062,8 @@ or
 
 #### Code:
 
+##### main.dart:
+
     import 'package:flutter/material.dart';
     import 'quote.dart';
 
@@ -1099,6 +1101,18 @@ or
         );
       }
     }
+
+##### quote.dart:
+
+    class Quote {
+
+      String text;
+      String author;
+
+      Quote({required this.text, required this.author});
+
+    }
+
 
 #### Explanation:
 
@@ -1219,6 +1233,131 @@ or
 `Widget`(return type) `quoteTemplete`(function name) `(quote)`(individual quote)`{return Card`(returning a card widget)`()}`
 
 - `children: quotes.map((quote) => quoteTemplete(quote)).toList(),` (for each item in tha list its going to map through that, cycle through a bit then call function'quoteTemplete' and  return us that widget tree)
+
+- - -
+
+### Extracting Widgets:
+
+#### Code:
+
+##### main.dart:
+
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
+    import 'quote_card.dart';
+
+    void main() => runApp(MaterialApp(
+      home: QouteList(),
+    ));
+
+    class QouteList extends StatefulWidget {
+      const QouteList({Key? key}) : super(key: key);
+
+      @override
+      State<QouteList> createState() => _QouteListState();
+    }
+
+    class _QouteListState extends State<QouteList> {
+
+      List<Quote> quotes = [
+        Quote(author: 'Osca Wilde', text: 'I have nothing to declare except my genius'),
+        Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
+        Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
+      ];
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('Awesome Quotes'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column (
+            children: quotes.map((quote) => QuoteCard(quote: quote)).toList(),
+          ),
+        );
+      }
+    }
+
+##### quote_card.dart:
+
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
+
+    class QuoteCard extends StatelessWidget {
+
+      final Quote quote;
+      QuoteCard ({required this.quote});
+
+      @override
+      Widget build(BuildContext context) {
+        return Card(
+          margin: EdgeInsets.all(16),
+          child: Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget> [
+                Text(
+                  quote.text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  quote.author,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- To create stateless widget for this card templete go to the flutter outline right click on the widget you want to extract and click on extract widget and give it a name
+
+  - It will create a new widget like this 
+
+        class QuoteCard extends StatelessWidget {
+          const QuoteCard({
+            Key? key,
+          }) : super(key: key);
+        }
+
+  - Change that code like this:
+
+        class QuoteCard extends StatelessWidget {}
+
+- And make other changes according to the code given above
+
+- We can also add class (in this case QuoteCard) to another file in the lib folder, so we can use it whenever we need it
+
+- Then write this `import 'quote_card.dart';` in 'main.dart' file to import 'quote_card.dart' file in 'main.dart' file
+
+-  Then write this `import 'package:flutter/material.dart';`
+`import 'quote.dart';` in 'quote_card.dart' file to import 'package:flutter/material.dart' and 'quote.dart' file in 'quote_card.dart' file
+
+- - -
+
+### :
+
+#### Code:
+
+
+
+#### Explanation:
+
+
 
 - - -
 
