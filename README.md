@@ -1588,9 +1588,11 @@ or
 - - -
 - - -
 
-## My First App 'My ID Card':
+- ## My Apps:
 
-### Code:
+### My First App 'My ID Card':
+
+#### Code:
 
     import 'package:flutter/material.dart';
 
@@ -1598,8 +1600,15 @@ or
       home: MyCard(),
     ));
 
-    class MyCard extends StatelessWidget {
+    class MyCard extends StatefulWidget {
       const MyCard({Key? key}) : super(key: key);
+      @override
+      State<MyCard> createState() => _MyCardState();
+    }
+
+    class _MyCardState extends State<MyCard> {
+
+      int ninjaLevel = 0;
 
       @override
       Widget build(BuildContext context) {
@@ -1610,6 +1619,15 @@ or
             centerTitle: true,
             backgroundColor: Colors.grey[850],
             elevation: 0,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                ninjaLevel += 1;
+              });
+            },
+            child: Icon(Icons.add),
+            backgroundColor: Colors.grey[800],
           ),
           body: Padding(
             padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
@@ -1654,7 +1672,7 @@ or
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  '8',
+                  '$ninjaLevel',
                   style: TextStyle(
                     color: Colors.blueGrey,
                     letterSpacing: 2,
@@ -1695,6 +1713,14 @@ or
         );
       }
     }
+
+- - -
+
+### The World Time App:
+
+#### Code:
+
+
 
 - - -
 - - -
