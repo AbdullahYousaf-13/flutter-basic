@@ -1159,6 +1159,8 @@ or
 
 #### Code:
 
+##### main.dart:
+
     import 'package:flutter/material.dart';
     import 'quote.dart';
 
@@ -1224,6 +1226,17 @@ or
           ),
         );
       }
+    }
+
+##### quote.dart:
+
+    class Quote {
+
+      String text;
+      String author;
+
+      Quote({required this.text, required this.author});
+
     }
 
 #### Explanation:
