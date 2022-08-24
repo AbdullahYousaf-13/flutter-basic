@@ -1157,7 +1157,7 @@ or
 
 ### Functions:
 
-#### Code:
+#### Functions Code:
 
 ##### main.dart:
 
@@ -1246,6 +1246,105 @@ or
 `Widget`(return type) `quoteTemplete`(function name) `(quote)`(individual quote)`{return Card`(returning a card widget)`()}`
 
 - `children: quotes.map((quote) => quoteTemplete(quote)).toList(),` (for each item in tha list its going to map through that, cycle through a bit then call function'quoteTemplete' and  return us that widget tree)
+
+#### Functions as Parameter Code:
+
+##### main.dart:
+
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
+    import 'quote_card.dart';
+
+    void main() => runApp(MaterialApp(
+      home: QouteList(),
+    ));
+
+    class QouteList extends StatefulWidget {
+      const QouteList({Key? key}) : super(key: key);
+
+      @override
+      State<QouteList> createState() => _QouteListState();
+    }
+
+    class _QouteListState extends State<QouteList> {
+
+      List<Quote> quotes = [
+        Quote(author: 'Osca Wilde', text: 'I have nothing to declare except my genius'),
+        Quote(author: 'Osca Wilde', text: 'The truth is rarely pure and never simple'),
+        Quote(author: 'Osca Wilde', text: 'Be yourself; everybody is already taken')
+      ];
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.grey[900],
+          appBar: AppBar(
+            title: Text('Awesome Quotes'),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column (
+            children: quotes.map((quote) => QuoteCard(
+              quote: quote,
+              delete: () {
+                setState(() {
+                  quotes.remove(quote);
+                });
+              }
+            )).toList(),
+          ),
+        );
+      }
+    }
+
+##### quote_card.dart:
+
+    import 'package:flutter/material.dart';
+    import 'quote.dart';
+
+    class QuoteCard extends StatelessWidget {
+
+      final Quote quote;
+      final Function delete;
+      QuoteCard ({required this.quote, required this.delete});
+
+      @override
+      Widget build(BuildContext context) {
+        return Card(
+          color: Colors.blueGrey,
+          margin: EdgeInsets.all(16),
+          child: Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget> [
+                Text(
+                  quote.text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  quote.author,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                SizedBox(height: 8),
+                FlatButton.icon(
+                  onPressed: () => delete(),
+                  label: Text('Delete Quote'),
+                  icon: Icon(Icons.delete),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
 
 - - -
 
