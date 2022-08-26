@@ -840,7 +840,9 @@ or
 
 #### Explanation:
 
-- The state of widget that cannot change over time, eg: state
+- The state cannot change over time
+
+- Build function only runs once
   
   Write 'stless' then press tab this code will appear 
 
@@ -857,7 +859,7 @@ or
 
 ### Stateful Widget:
 
-#### Code:
+#### Code-1:
 
     import 'package:flutter/material.dart';
 
@@ -979,11 +981,11 @@ or
       }
     }
 
-#### Explanation:
+#### Explanation-1:
 
-- The state of widget that can change over time, eg: data, counters
+- The state can change over time
 
-  Write 'stful' then press tab this code will appear
+- Write 'stful' then press tab this code will appear
 
       class [widget-name] extends StatefulWidget {
         const ({Key? key}) : super(key: key);
@@ -1000,7 +1002,140 @@ or
         }
       }
 
+#### Code-2:
 
+##### main.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
+
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/home',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (contaxt) => ChooseLocation(),
+      },
+    ));
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+      int counter = 1;
+
+      @override
+      void initState() {
+        super.initState();
+        print('initState function ran');
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        print('build function ran');
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: RaisedButton(
+            onPressed: () {
+              setState(() {
+                counter += 1;
+              });
+            },
+            child: Text('Counter is $counter'),
+          ),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Text('Loading Screen'),
+        );
+      }
+    }
+
+
+#### Explanation-2:
+
+- `setState()`
+  
+  - triggers the build function
+
+- `initState()`
+
+  - Called only once when the widget is created
+
+  - Subscribe to streams or any object that could change our widget data
+
+- `Build()`
+
+  - Builds the widget tree
+
+  - A build is triggered every time we use setState()
+
+- `Dispose()`
+
+  - When the widget/ state object is removed
 
 - - -
 - - -
@@ -1462,15 +1597,154 @@ or
 
 - - -
 
-### :
+### Maps and Routing:
 
 #### Code:
+
+##### main.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
+
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/home',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (contaxt) => ChooseLocation(),
+      },
+    ));
+
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: Text('Choose location Screen'),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Text('Loading Screen'),
+        );
+      }
+    }
+
+
+#### Explanation:
+
+- `Map student = {'name': 'Dark-Knight', 'age': '20'};`
+
+- `print(student['name']);`
+
+- `initialRoute: '/home',`
+
+- `routes: {}`
+
+  - `'/': (context) => Loading(),`
+
+  - `'/home': (context) => Home(),`
+
+  - `'/location': (context) => ChooseLocation(),`
+
+- - -
+
+### Asynchronous Code:
+
+#### Code:
+
+##### main.dart:
+
+
+
+##### home.dart:
+
+
+
+##### choose_location.dart:
+
+
+
+##### loading.dart:
 
 
 
 #### Explanation:
 
+- `void getData() {}` (function, in this case returning nothing)
 
+  - `Future`(function)`.delayed()`(object, triggers some kind of delay, takes two arguments)
+    
+    - `Duration((),() {});` (object)
+
+      - `(seconds: 3),` (argument-1, specifies how many seconds that delay should be) `() {print('D-K');}` (argument-2, call back function, fires when seconds are up)
+
+- `getData ();` (calling data from initState)
 
 - - -
 
@@ -1721,7 +1995,19 @@ or
 
 #### Code:
 
+##### main.dart:
 
+
+
+##### home.dart:
+
+
+
+##### choose_location.dart:
+
+
+
+##### loading.dart:
 
 - - -
 - - -
@@ -1851,6 +2137,20 @@ or
 ### :
 
 #### Code:
+
+##### main.dart:
+ 
+
+
+##### home.dart:
+
+
+
+##### choose_location.dart:
+
+
+
+##### loading.dart:
 
 
 
