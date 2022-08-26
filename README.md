@@ -1714,39 +1714,7 @@ or
 
 - - -
 
-### Asynchronous Code:
 
-#### Code:
-
-##### main.dart:
-
-
-
-##### home.dart:
-
-
-
-##### choose_location.dart:
-
-
-
-##### loading.dart:
-
-
-
-#### Explanation:
-
-- `void getData() {}` (function, in this case returning nothing)
-
-  - `Future`(function)`.delayed()`(object, triggers some kind of delay, takes two arguments)
-    
-    - `Duration((),() {});` (object)
-
-      - `(seconds: 3),` (argument-1, specifies how many seconds that delay should be) `() {print('D-K');}` (argument-2, call back function, fires when seconds are up)
-
-- `getData ();` (calling data from initState)
-
-- - -
 
 
 
