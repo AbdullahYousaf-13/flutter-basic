@@ -5,16 +5,10 @@ import 'package:my_first_app/pages/choose_location.dart';
 
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/home',
+  initialRoute: '/',
   routes: {
     '/': (context) => Loading(),
     '/home': (context) => Home(),
-    '/location': (contaxt) => ChooseLocation(),
+    '/location': (context) => ChooseLocation(),
   },
 ));
-
-
-
-
-
-

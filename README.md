@@ -3,6 +3,7 @@
 A repository covering Flutter basics
 
 - - -
+- - -
 
 ## What is Flutter:
 - Mobile UI framework for creating native apps for IOS & Android
@@ -11,6 +12,7 @@ A repository covering Flutter basics
 
 - Uses dart as the the programing language
 
+- - -
 - - -
 
 ## Why use Flutter:
@@ -28,6 +30,7 @@ A repository covering Flutter basics
 - Great docs & guides on the flutter website
 
 - - -
+- - -
 
 ## Flutter Basics:
 
@@ -41,18 +44,6 @@ letter and new word also starts with capital the letter
 - Put semi-colonm at the end of the return function
 
 - - -
-
-## Some Flutter Widgets:
-- Text Widget
-
-- Button Widget
-
-- Row Widget
-
-- Column Widget
-
-- Image Widget
-
 - - -
 
 ## Variables in Dart:
@@ -1714,7 +1705,560 @@ or
 
 - - -
 
+### Asynchronous Code:
 
+#### Code:
+
+##### main.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
+
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/home',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (contaxt) => ChooseLocation(),
+      },
+    ));
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+      void getData() async {
+
+        //simulate network request for a username
+        await Future.delayed(Duration(seconds: 3), () {
+          print ('D-K');
+        });
+
+        //simulate network request to get the bio of the username
+        String bio = await Future.delayed(Duration(seconds: 2), () {
+          return 'Student, Gamer';
+        });
+
+        print('$bio');  
+
+      }
+
+      int counter = 1;
+
+      @override
+      void initState() {
+        super.initState();
+        getData();
+        print('initState function ran');
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        print('build function ran');
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: RaisedButton(
+            onPressed: () {
+              setState(() {
+                counter += 1;
+              });
+            },
+            child: Text('Counter is $counter'),
+          ),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Text('Loading Screen'),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `void getData()` `async`(used with await)`{}` (function, in this case returning nothing) 
+
+  - `await`(keeps it waiting until its done then move to next line) `Future`(function)`.delayed()`(object, triggers some kind of delay, takes two arguments)
+    
+    - `Duration((),() {});` (object)
+
+      - `(seconds: 3),` (argument-1, specifies how many seconds that delay should be) `() {print('D-K');}` (argument-2, call back function, fires when seconds are up)
+
+- `getData ();` (calling data from initState)
+
+- - -
+
+### Packages:
+
+#### Code:
+
+##### main.dart:
+ 
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
+
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (context) => ChooseLocation(),
+      },
+    ));
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+
+
+      @override
+      Widget build(BuildContext context) {
+        print('build function ran');
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+        );
+      }
+    }
+
+##### loading.dart-1:
+
+    import 'package:flutter/material.dart';
+    import 'package:http/http.dart';
+    import 'dart:convert';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      void getData() async {
+
+        Response response = await get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+        Map data = jsonDecode(response.body);
+        print(data);
+        print(data['title']);
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        getData();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Text('Loading Screen'),
+        );
+      }
+    }
+
+##### loading.dart-2:
+
+    import 'package:flutter/material.dart';
+    import 'package:http/http.dart';
+    import 'dart:convert';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      void getTime() async {
+
+        //make the request
+        Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/europe/london'));
+        Map data = jsonDecode(response.body);
+        //print(data);
+
+        //get properties from data
+
+        String datetime = data  ['datetime'];
+        String offset = data['utc_offset'].substring(1,3);
+        //print(datetime);
+        //print(offset);
+
+        //print(data['datetime']);
+        //print(data['utc_offset']);
+
+        //create DateTime object
+        DateTime now = DateTime.parse(datetime);
+        now = now.add(Duration(hours: int.parse(offset)));
+        print(now);
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        getTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Text('Loading Screen'),
+        );
+      }
+    }
+
+#### Explanation:
+
+- To add a package go to web 'pub.dev' search your desired package copy its dependencies from the tab 'installing', go to your editor, open file 'pubspec.yaml' go to 'dependencies' section and paste the dependencies there with one tab then go to your file and click on 'Get dependencies' import the package like this `import 'package:http/http.dart';`
+
+- JSON Placeholder: Free fake API for testing and prototyping to use it go its website 'JSON Placeholder', copy the code and use it like this 
+  
+- `Response`(object-type) `response`(object) `= await get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));`
+
+- `Map data = jsonDecode(response.body);` (decodes json string into a map stored in data)
+
+- `print(data);` (to print all data/properties)
+
+- `print(data['[property-name]']);` (to print a desired property)
+
+  or
+
+- `String datetime = data  ['utc_datetime'];`
+
+  `String offset = data['utc_offset'].substring(1,3)`(used to show characters that we only need)`;`
+
+  `print(datetime);`
+
+  `print(offset);`
+
+- `DateTime`(class) `now`(name) `= DateTime`(object)`.parse`(method)`(datetime)`(variable)`;`
+
+- `now = now.add(Duration(hours: int.parse(offset)));` (adds a specific amount of time to a date object, takes the string 'offset' and convert it into an integer)
+
+- `print(now);`
+
+- 
+
+- - -
+
+### World Time Custom Classes:
+
+#### Code:
+
+##### main.dart:
+ 
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
+
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (context) => ChooseLocation(),
+      },
+    ));
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+
+
+      @override
+      Widget build(BuildContext context) {
+        print('build function ran');
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      String time = 'loading';
+
+      Future<void> setupWorldTime() async {
+        WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+        await instance.getTime();
+        print(instance.time);
+        setState(() {
+          time = instance.time;
+        });
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        setupWorldTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Padding(
+              padding: EdgeInsets.all(50),
+              child: Text(time),    
+          ),
+        );
+      }
+    }
+
+##### world_time.dart:
+
+    import 'package:http/http.dart';
+    import 'dart:convert';
+
+    class WorldTime {
+
+      late String location; // location name for the UI
+      late String time; // the time in that location
+      late String flag; // url to an asset flag icon
+      late String url; // location url for api endpoint
+
+      WorldTime({ required this.location, required this.flag, required this.url});
+
+      Future <void> getTime() async {
+
+        //make the request
+        Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+        Map data = jsonDecode(response.body);
+        //print(data);
+
+        //get properties from data
+        String datetime = data  ['datetime'];
+        String offset = data['utc_offset'].substring(1,3);
+        //print(datetime);
+        //print(offset);
+
+        //create DateTime object
+        DateTime now = DateTime.parse(datetime);
+        now = now.add(Duration(hours: int.parse(offset)));
+
+        // set the time property
+        time = now.toString();
+
+      }
+
+    }
+
+#### Explanation:
+
+- `String time = 'loading';` (outputting the time to the UI)
+
+- `Future<void> setupWorldTime() async {}`
+
+  - `WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');` (creating instance of the world time class passing in all of the information)
+
+  - `await instance.getTime();` (getTime function awaiting the response over here before we move on)
+
+  - `print(instance.time);` (when we get that response and set the time inside that instance then we finally printing out that time)
+  
+- - -
+
+# 
+### :
+
+#### Code:
+
+##### main.dart:
+ 
+
+
+##### home.dart:
+
+
+
+##### choose_location.dart:
+
+
+
+##### loading.dart:
+
+
+
+##### world_time.dart:
+
+
+
+#### Explanation:
+
+
+
+- - -
 
 
 
@@ -1831,7 +2375,7 @@ or
 - - -
 - - -
 
-- ## My Apps:
+## My Apps:
 
 ### My First App 'My ID Card':
 
@@ -2119,6 +2663,10 @@ or
 
 
 ##### loading.dart:
+
+
+
+##### world_time.dart:
 
 
 
