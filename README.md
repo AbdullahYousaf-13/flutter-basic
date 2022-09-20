@@ -2414,7 +2414,7 @@ or
 
   (receiving the arguments that we send in 'loading.dart')
 
-`print(data);` (prints data)
+- `print(data);` (prints data)
 
 - - -
 
