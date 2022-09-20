@@ -2092,12 +2092,21 @@ or
           body: SafeArea(
             child: Column(
               children: <Widget> [
-                FlatButton.icon(
+                TextButton.icon(
                   onPressed: () {
                     Navigator.pushNamed(context, '/location');
                   },
-                  icon: Icon(Icons.edit_location),
-                  label: Text('Edit Location'),
+                  icon: Icon(Icons.edit_location,
+                    color: Colors.grey[800],
+                  ),
+                  label: Text('Edit Location',
+                    style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                    fontFamily: 'RubikMaze',
+                  ),
+                  ),
                 ),
               ],
             ),
@@ -2105,7 +2114,6 @@ or
         );
       }
     }
-
 
 ##### choose_location.dart:
 
@@ -2229,34 +2237,216 @@ or
   
 - - -
 
-# 
-### :
+### Error Handling:
 
 #### Code:
 
-##### main.dart:
- 
+##### world_time.dart:
 
+    import 'dart:math';
+    import 'package:http/http.dart';
+    import 'dart:convert';
+
+    class WorldTime {
+
+      late String location; // location name for the UI
+      late String time; // the time in that location
+      late String flag; // url to an asset flag icon
+      late String url; // location url for api endpoint
+
+      WorldTime({ required this.location, required this.flag, required this.url});
+
+      Future <void> getTime() async {
+
+        try {
+          //make the request
+          Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          Map data = jsonDecode(response.body);
+          //print(data);
+
+          //get properties from data
+          String datetime = data  ['datetime'];
+          String offset = data['utc_offset'].substring(1,3);
+          //print(datetime);
+          //print(offset);
+
+          //create DateTime object
+          DateTime now = DateTime.parse(datetime);
+          now = now.add(Duration(hours: int.parse(offset)));
+
+          // set the time property
+          time = now.toString();
+        }
+        catch (e) {
+          print('Cought Error: $e');
+          time = 'Could not get time data';
+        }
+      }
+    }
+
+#### Explanation:
+
+- `try {`[code]`}` (trying to do something)
+
+- `catch (e) {}` (if our tried code does not work it catches the error and prints it)
+
+  - `print('Cought Error:`(error message) `$e');` (prints the error message)
+
+  - `time = 'Could not get time data';` (updating the time variable to this message)
+
+
+- - -
+
+### Passing Route Data:
+
+#### Code:
 
 ##### home.dart:
 
+    import 'package:flutter/material.dart';
 
+    class Home extends StatefulWidget {
 
-##### choose_location.dart:
+      @override
+      State<Home> createState() => _HomeState();
+    }
 
+    class _HomeState extends State<Home> {
+
+      Map data = {};
+
+      @override
+      Widget build(BuildContext context) {
+
+        try {
+          if (data.isEmpty) {
+            data = ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+        } catch (e) {
+          data = {};
+        }
+        print(data);
+
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: SafeArea(
+            child: Column(
+              children: <Widget> [
+                TextButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  icon: Icon(Icons.edit_location),
+                  label: Text('Edit Location'),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
 
 
 ##### loading.dart:
 
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
 
+    class Loading extends StatefulWidget {
 
-##### world_time.dart:
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
 
+    class _LoadingState extends State<Loading> {
+
+      Future<void> setupWorldTime() async {
+        WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+        await instance.getTime();
+        Navigator.pushReplacementNamed (context, '/home', arguments: {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+        });
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        setupWorldTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body: Padding(
+            padding: EdgeInsets.all(50),
+            child: Text('Loading'),
+          ),
+        );
+      }
+    }
 
 
 #### Explanation:
 
+- `Navigator`(object, redirects to the home page) `.pushReplacementNamed`(method, pushes to the desired route by replacing it with the previous one, previous tab won't be underneath the new one) `(context,`(1st object as 1st argument)`'/home',`(name of the route we want to go to) `arguments:`(3rd parameter, used to sent some properties) `{'location': instance.location,`(defining a property name) `'flag': instance.flag,` `'time': instance.time});`
 
+- `Map data = {};` (passing all above properties trough to this next route)
+
+-      try {
+            if (data.isEmpty) {
+              data = ModalRoute.of(context)!.settings.arguments == null
+                  ? data
+                  : ModalRoute.of(context)!.settings.arguments as Map;
+            } else {
+              data = data;
+            }
+          } catch (e) {
+            data = {};
+          }
+          print(data);
+
+  (receiving the arguments that we send in 'loading.dart')
+
+`print(data);` (prints data)
+
+- - -
+
+### Formating and Showing Dates:
+
+#### Code :
+
+##### main.dart:
+ 
+    
+
+##### home.dart:
+
+    
+
+##### choose_location.dart:
+
+    
+
+##### loading.dart:
+
+    
+
+##### world_time.dart:
+
+    
+
+#### Explanation:
+
+- To add a package go to web 'pub.dev' search your desired package copy its dependencies from the tab 'installing', go to your editor, open file 'pubspec.yaml' go to 'dependencies' section and paste the dependencies there with one tab then go to your file and click on 'Get dependencies' import the package like this `import 'package:intl/intl.dart';`
+
+- 
 
 - - -
 
@@ -2691,3 +2881,8 @@ or
 
 
 - git status
+
+---
+---
+
+
