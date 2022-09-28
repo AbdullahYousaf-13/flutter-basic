@@ -41,7 +41,7 @@ letter and new word also starts with capital the letter
 
 - Put comma ( , ) after every value of every property and after scaffold aswell just in case we have more properties later on
 
-- Put semi-colonm at the end of the return function
+- Put semi-colonm at the end of the return statement
 
 - - -
 - - -
@@ -2422,32 +2422,814 @@ or
 
 #### Code :
 
-##### main.dart:
- 
-    
-
 ##### home.dart:
 
-    
+    import 'package:flutter/material.dart';
 
-##### choose_location.dart:
+    class Home extends StatefulWidget {
 
-    
+      @override
+      State<Home> createState() => _HomeState();
+    }
 
-##### loading.dart:
+    class _HomeState extends State<Home> {
 
-    
+      Map data = {};
 
-##### world_time.dart:
+      @override
+      Widget build(BuildContext context) {
 
-    
+        try {
+          if (data.isEmpty) {
+            data = ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+        } catch (e) {
+          data = {};
+        }
+        print(data);
+
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+              child: Column(
+                children: <Widget> [
+                  TextButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/location');
+                    },
+                    icon: Icon(Icons.edit_location, color: Colors.grey[900],size: 20,),
+                    label: Text('Edit Location',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[900],
+                        fontFamily: 'RubikMaze',
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        data['location'],
+                        style: TextStyle(
+                          fontSize: 28,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Text(
+                    data['time'],
+                    style: TextStyle(
+                      fontSize: 60,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+###### world_time.dart:
+
+    import 'dart:math';
+    import 'package:http/http.dart';
+    import 'dart:convert';
+    import 'package:intl/intl.dart';
+
+    class WorldTime {
+
+      late String location; // location name for the UI
+      late String time; // the time in that location
+      late String flag; // url to an asset flag icon
+      late String url; // location url for api endpoint
+
+      WorldTime({ required this.location, required this.flag, required this.url});
+
+      Future <void> getTime() async {
+
+        try {
+          //make the request
+          Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          Map data = jsonDecode(response.body);
+          //print(data);
+
+          //get properties from data
+          String datetime = data  ['datetime'];
+          String offset = data['utc_offset'].substring(1,3);
+          //print(datetime);
+          //print(offset);
+
+          //create DateTime object
+          DateTime now = DateTime.parse(datetime);
+          now = now.add(Duration(hours: int.parse(offset)));
+
+          // set the time property
+          time = DateFormat.jm().format(now);
+        }
+        catch (e) {
+          print('Cought Error: $e');
+          time = 'Could not get time data';
+        }
+      }
+    }
 
 #### Explanation:
 
 - To add a package go to web 'pub.dev' search your desired package copy its dependencies from the tab 'installing', go to your editor, open file 'pubspec.yaml' go to 'dependencies' section and paste the dependencies there with one tab then go to your file and click on 'Get dependencies' import the package like this `import 'package:intl/intl.dart';`
 
+- `time`(variable) `=` `DateFormat` (using function provided by the 'intl' package) `.jm()`(method) `.format(now);`(method, formats date so it looks good)
+
+- - -
+
+### Loaders/Spinners:
+
+#### Code:
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+
+      Map data = {};
+
+      @override
+      Widget build(BuildContext context) {
+
+        try {
+          if (data.isEmpty) {
+            data = ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+        } catch (e) {
+          data = {};
+        }
+        print(data);
+
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+              child: Column(
+                children: <Widget> [
+                  TextButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/location');
+                    },
+                    icon: Icon(Icons.edit_location, color: Colors.grey[900],size: 20,),
+                    label: Text('Edit Location',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[900],
+                        fontFamily: 'RubikMaze',
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        data['location'],
+                        style: TextStyle(
+                          fontSize: 28,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Text(
+                    data['time'],
+                    style: TextStyle(
+                      fontSize: 60,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+    import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      Future<void> setupWorldTime() async {
+        WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+        await instance.getTime();
+        Navigator.pushReplacementNamed (context, '/home', arguments: {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+        });
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        setupWorldTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: Center(
+            child: SpinKitSpinningLines(
+              size: 50.0,
+              color: Colors.black,
+            ),
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- To add a package go to web 'pub.dev' search your desired package copy its dependencies from the tab 'installing', go to your editor, open file 'pubspec.yaml' go to 'dependencies' section and paste the dependencies there with one tab then go to your file and click on 'Get dependencies' import the package like this: `import 'package:flutter_spinkit/flutter_spinkit.dart';` then go to to 'readme' tab 'How To Use' section and copy this code:
+
+      SpinKitRotatingCircle(
+        color: Colors.white,
+        size: 50.0,
+      ),
+
+  Place it inside body like this:
+
+      body: Center(
+        child: SpinKitRotatingCircle(
+          color: Colors.white,
+          size: 50.0,
+        ),
+      ),
+
+- - -
+
+### Ternary Operators:
+
+#### Code:
+
+##### home.dart:
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+
+      Map data = {};
+
+      @override
+      Widget build(BuildContext context) {
+
+        try {
+          if (data.isEmpty) {
+            data = ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+        } catch (e) {
+          data = {};
+        }
+        print(data);
+
+        // set background
+        String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
+        Color? bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
+
+        return Scaffold(
+          backgroundColor: bgColor,
+          body: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/$bgImage'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+                child: Column(
+                  children: <Widget> [
+                    TextButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/location');
+                      },
+                      icon: Icon(
+                        Icons.edit_location,
+                        color: Colors.grey[900],
+                        size: 20,
+                      ),
+                      label: Text(
+                        'Edit Location',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[900],
+                          fontFamily: 'RubikMaze',
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          data['location'],
+                          style: TextStyle(
+                            fontSize: 28,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    Text(
+                      data['time'],
+                      style: TextStyle(
+                        fontSize: 60,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+##### loading.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+    import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      Future<void> setupWorldTime() async {
+        WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+        await instance.getTime();
+        Navigator.pushReplacementNamed (context, '/home', arguments: {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+          'isDaytime': instance.isDaytime,
+        });
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        setupWorldTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: Center(
+            child: SpinKitSpinningLines(
+              size: 50.0,
+              color: Colors.black,
+            ),
+          ),
+        );
+      }
+    }
+
+##### world_time.dart:
+
+    import 'package:http/http.dart';
+    import 'dart:convert';
+    import 'package:intl/intl.dart';
+
+    class WorldTime {
+
+      late String location; // location name for the UI
+      late String time; // the time in that location
+      late String flag; // url to an asset flag icon
+      late String url; // location url for api endpoint
+      late bool isDaytime; //true or false if daytime or not
+
+      WorldTime({ required this.location, required this.flag, required this.url});
+
+      Future <void> getTime() async {
+
+        try {
+          //make the request
+          Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          Map data = jsonDecode(response.body);
+          //print(data);
+
+          //get properties from data
+          String datetime = data  ['datetime'];
+          String offset = data['utc_offset'].substring(1,3);
+          //print(datetime);
+          //print(offset);
+
+          //create DateTime object
+          DateTime now = DateTime.parse(datetime);
+          now = now.add(Duration(hours: int.parse(offset)));
+
+          // set the time property
+          isDaytime = now.hour >6 && now.hour <20 ? true : false;
+          time = DateFormat.jm().format(now);
+        }
+        catch (e) {
+          print('Cought Error: $e');
+          time = 'Could not get time data';
+        }
+
+
+
+      }
+    }
+
+#### Explanation:
+
+- `late bool isDaytime;` (property)
+
+- `isDaytime`(value) `=` `now.hour > 6 && now.hour < 20`(condition) `? true : false;` (ternary operator)
+
+- `'isDaytime': instance.isDaytime,`(passing fourth property in 'loading.dart')
+
+- To add an image open file 'pubspec.yaml', go to the assets section in the file uncomment it, and change name in accordance with your image name, just leave till one asset and remove the rest, then allign the text by one tab, then give that asset the path like: (`assets/`) then go to main.dart file and click on 'Get dependencies', now we can reffer to that particular image
+
+- `String bgImage = data['isDaytime'] ? 'day,png' : 'night.png';`(ternary operator, performs a check to see if the data we get is day time or night time and decides background image on the basis of result of our check)
+
+- Go to padding in 'home.dart' wrap padding with a widget and name it 'Container'
+
+- (gives us a way to apply background image to fit the screen)
+
+  `decoration:`(property) `BoxDecoration(`(can go inside a container) `image:`(property) `DecorationImage(`(allows us to apply background image to the whole screen) `image:`(property) `AssetImage('assets/$bgImage'),` (passing in the path for the image we want to use)  `fit: BoxFit.cover,`(covers the entire container all over the screen) `),),`(can go inside a container)
+
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/$bgImage'),
+          fit: BoxFit.cover,
+        ),
+      ),
+
+- `Color? bgColor = data['isDaytime'] ? Colors.blue[700] : Colors.indigo[700];`(ternary operator, performing a check to see if the data we get is day time or night time and decides background color on the basis of result of our check)
+
+- `backgroundColor: bgColor,` (applying this backgroundcolor to the scaffold)
+
+- - -
+
+### List view builder:
+
+#### Code:
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+      List<WorldTime> locations = [
+        WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+        WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+        WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+        WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+        WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+        WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+        WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+        WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+      ];
+
+
+      @override
+      Widget build(BuildContext context) {
+        print('build function ran');
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (context, index){
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 3),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      print(locations[index].location); //just to check that its working
+                    },
+                    title: Text(locations[index].location),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/${locations[index].flag}'),
+                    ),
+                  ),
+                ),
+              );
+            }
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+import the package in 'location.dart' like this: `import 'package:my_first_app/services/world_time.dart';`
+
+- 'list' containing 'worldTime' instences and variable 'locations'
+
+      List<WorldTime> locations = [
+          WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+          WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+          WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+          WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+          WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+          WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+          WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+          WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+        ];
+
+- (creating a list view builder that allows us to use an inline anonymous function to return a widget templete for each item inside this list)
+
+  Inside at the end of scaffold `body: ListView.builder(`(property) `itemCount:`(property, first peice of info we need to provide, how many items are inside the list that we want to cycle through) `locations`(variable name) `.length,`(how many items are inside the list) `itemBuilder:`(function, takes to parameters, 'ListView.builder' will use it for every single item inside the list and will cycle through the list and return a widget templete/tree for every item inside the list) `(context,`(object) `index`(each time we find the function we get access to index of that item in the list)`)` `{return`(returning a templete for each item inside that list) `Card(`(creates a card) `child:`(property) `ListTile(`(creates one-line with leading widget) `onTap:`(property/function, a bit like 'onPressed') `() {print(locations[index].location);`(just to check that its working) `},` `title: Text(locations`(list itself) `[index`(to get perticuler item that we currently iterating) `.location`(location name)`),`(the actual text that is going to be shown inside that 'ListTile') `),` `leading:`(property) `CircleAvatar(backgroundImage: AssetImage('assets/${locations[index].flag}'),`(circle with a background image that will be a picture) `)`(outputting one of the images next to each one of the items on the list) `);}),`
+
+- Add padding to the card and insert values like this:
+
+      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 3),
+
+- - -
+
+### Updating the Location:
+
+#### Code (not varified):
+
+##### home.dart: 
+
+    import 'package:flutter/material.dart';
+
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+
+      Map data = {};
+
+      @override
+      Widget build(BuildContext context) {
+
+        try {
+          if (data.isEmpty) {
+            data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+        } catch (e) {
+          data = {};
+        }
+        print(data);
+
+        // set background
+        String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
+        Color? bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
+
+        return Scaffold(
+          backgroundColor: bgColor,
+          body: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/$bgImage'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+                child: Column(
+                  children: <Widget> [
+                    TextButton.icon(
+                      onPressed: () async {
+                        dynamic result = Navigator.pushNamed(context, '/location');
+                        setState(() {
+                          data = {
+                            'time': result['time'],
+                            'location': result ['location'],
+                            'isDaytime': result ['isDaytime'],
+                            'flag': result ['flag']
+                          };
+                        });
+                      },
+                      icon: Icon(
+                        Icons.edit_location,
+                        color: Colors.grey[900],
+                        size: 20,
+                      ),
+                      label: Text(
+                        'Edit Location',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[900],
+                          fontFamily: 'RubikMaze',
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          data['location'],
+                          style: const TextStyle(
+                            fontSize: 28,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20,),
+                    Text(
+                      data['time'],
+                      style: const TextStyle(
+                        fontSize: 60,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+##### choose_location.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+      List<WorldTime> locations = [
+        WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+        WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+        WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+        WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+        WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+        WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+        WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+        WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+      ];
+
+      void updateTime(index) async {
+        WorldTime instance = locations[index];
+        await instance.getTime();
+        //navigate to home screen
+        Navigator.pop(context, {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+          'isDaytime': instance.isDaytime,
+        });
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (context, index){
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 3),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      updateTime(index);
+                    },
+                    title: Text(locations[index].location),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/${locations[index].flag}'),
+                    ),
+                  ),
+                ),
+              );
+            }
+          ),
+        );
+      }
+    }
+
+#### Explanation:
+
+- `void`(defining function) `updateTime`(function name) `(index)`(represents which ever instence of this class we want to call the get method on) `async{}`
+
+- `updateTime(index);`(calling the function inside the onTap function) 
+
+- `WorldTime`(data type) `instance`(variable name) `=` `Locations`(list) `[index];`(to get a specific item from the list) (storing the instance inside the local variable 'instance' which has type 'WorldTime')
+
+- `await`(waiting till 'instance.getTime()' is done) `instance.getTime();`
+
+- `Navigator.pop``( `(popping Choose a Location' screen)`)` `(context, {'location': instance.location, 'flag': instance.flag, 'time': instance.time, 'isDaytime': instance.isDaytime,}`(passing in the data that we want to send back to the home screen inside a map '{ }', the data is going to be same as the data that we send from the home page)`);`(popping Choose a Location' screen)
+
+- `onpressed: () async { dynamic`(variable type) `result`(vaiable name) `await Navigator.pushNamed(context, '/location');},`(putting the 'dynamic' and 'await' keyword infront ofthe 'Navigator.pushNamed') (when we click on one of the locations it gets the time for that location and pops back to the old route the 'home' screen underneath with this data: '`'location': instance.location, 'flag': instance.flag, 'time': instance.time, 'isDaytime': instance.isDaytime,`' and its going to get stored in the 'result' variable)
+
+- `steState(() {data = {'time: result['time'], 'location': result ['location'], 'isDaytime': result ['isDaytime'], }; 'flag': result ['flag'] }`(updates all different values) `);`(when we get the result we can use the datainside this result to update the state of this widget)
+
+- (making a ternary operator is for a check)
+
+- (creating a function that is going get get time method on whatever instence we want to find out the time for, like if they click on any location we would the get time method on that 'WorldTime' instence to get that data then when we have the data we will reroute to the home page and update the 'home' page with that data)
+
+- Change this code:
+
+      String offset = data['utc_offset'].substring(1,3);
+
+  To this:
+
+      String offset = data['utc_offset'].substring(0,3);
+
+  In 'world_time.dart' to get accurate time
+
 - 
 
+- - -
 - - -
 
 
@@ -2617,7 +3399,7 @@ or
                     radius: 40,
 
                   ),
-                ),
+                ),dsasadasdasdasd
                 Divider(
                   height: 90,
                   color: Colors.grey,
@@ -2695,21 +3477,311 @@ or
 
 ### The World Time App:
 
-#### Code:
+#### Code(Wip):
 
 ##### main.dart:
 
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/pages/home.dart';
+    import 'package:my_first_app/pages/loading.dart';
+    import 'package:my_first_app/pages/choose_location.dart';
 
+
+    void main() => runApp(MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
+        '/location': (context) => ChooseLocation(),
+      },
+    ));
 
 ##### home.dart:
 
+    import 'package:flutter/material.dart';
 
+    class Home extends StatefulWidget {
+
+      @override
+      State<Home> createState() => _HomeState();
+    }
+
+    class _HomeState extends State<Home> {
+
+      Map data = {};
+
+      late String bgImage;
+      late Color bgColor;
+
+
+      @override
+      Widget build(BuildContext context) {
+
+        try {
+          if (data.isEmpty) {
+            data = ModalRoute.of(context)!.settings.arguments == null
+                ? data
+                : ModalRoute.of(context)!.settings.arguments as Map;
+          } else {
+            data = data;
+          }
+          bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
+          bgColor = (data['isDayTime'] ? Colors.blue : Colors.indigo[700])!;
+        } catch (e) {
+          print('waleed 2: $e');
+          data = {};
+        }
+
+        // try {
+        //   if (data.isEmpty) {
+        //     data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments == null
+        //         ? data
+        //         : ModalRoute.of(context)!.settings.arguments as Map;
+        //   } else {
+        //     data = data;
+        //   }
+        //   bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
+        //   bgColor = (data['isDaytime'] ? Colors.blue : Colors.indigo[700])!;
+        // } catch (e) {
+        //   data = {};
+        // }
+        // // print(data);
+
+        // set background
+
+        return Scaffold(
+          backgroundColor: bgColor,
+          body: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/$bgImage'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+                child: Column(
+                  children: <Widget> [
+                    TextButton.icon(
+                      onPressed: () async {
+                        dynamic result = Navigator.pushNamed(context, '/location');
+                        setState(() {
+                          data = {
+                            'time': result['time'],
+                            'location': result ['location'],
+                            'isDaytime': result ['isDaytime'],
+                            'flag': result ['flag']
+                          };
+                        });
+                      },
+                      icon: Icon(
+                        Icons.edit_location,
+                        color: Colors.grey[900],
+                        size: 20,
+                      ),
+                      label: Text(
+                        'Edit Location',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[900],
+                          fontFamily: 'RubikMaze',
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          data['location'],
+                          style: const TextStyle(
+                            fontSize: 28,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20,),
+                    Text(
+                      data['time'],
+                      style: const TextStyle(
+                        fontSize: 60,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
 
 ##### choose_location.dart:
 
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
 
+    class ChooseLocation extends StatefulWidget {
+
+      @override
+      State<ChooseLocation> createState() => _ChooseLocationState();
+    }
+
+    class _ChooseLocationState extends State<ChooseLocation> {
+
+      List<WorldTime> locations = [
+        WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+        WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+        WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+        WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+        WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+        WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+        WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+        WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+      ];
+
+      void updateTime(index) async {
+        WorldTime instance = locations[index];
+        await instance.getTime();
+        //navigate to home screen
+        Navigator.pop(context, {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+          'isDaytime': instance.isDaytime,
+        });
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey[900],
+            title: Text('Choose a Location'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: ListView.builder(
+              itemCount: locations.length,
+              itemBuilder: (context, index){
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 3),
+                  child: Card(
+                    child: ListTile(
+                      onTap: () {
+                        updateTime(index); //just to check that its working
+                      },
+                      title: Text(locations[index].location),
+                      leading: CircleAvatar(
+                        backgroundImage: AssetImage('assets/${locations[index].flag}'),
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
+        );
+      }
+    }
 
 ##### loading.dart:
+
+    import 'package:flutter/material.dart';
+    import 'package:my_first_app/services/world_time.dart';
+    import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+    class Loading extends StatefulWidget {
+
+      @override
+      State<Loading> createState() => _LoadingState();
+    }
+
+    class _LoadingState extends State<Loading> {
+
+      Future<void> setupWorldTime() async {
+        WorldTime instance = WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+        await instance.getTime();
+        Navigator.pushReplacementNamed (context, '/home', arguments: {
+          'location': instance.location,
+          'flag': instance.flag,
+          'time': instance.time,
+          'isDaytime': instance.isDaytime,
+        });
+
+      }
+
+      @override
+      void initState() {
+        super.initState();
+        setupWorldTime();
+      }
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.blueGrey[900],
+          body: Center(
+            child: SpinKitSpinningLines(
+              size: 50.0,
+              color: Colors.black,
+            ),
+          ),
+        );
+      }
+    }
+
+##### world_time.dart
+
+    import 'package:flutter/cupertino.dart';
+    import 'package:http/http.dart';
+    import 'dart:convert';
+    import 'package:intl/intl.dart';
+
+    class WorldTime {
+
+      late String location; // location name for the UI
+      late String time; // the time in that location
+      late String flag; // url to an asset flag icon
+      late String url; // location url for api endpoint
+      late bool isDaytime; //true or false if daytime or not
+
+      WorldTime({ required this.location, required this.flag, required this.url});
+
+      Future <void> getTime() async {
+
+        try {
+          //make the request
+          print('wy before data:');
+          Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          print('wy aftwer call data:');
+          Map data = jsonDecode(response.body);
+          print('wy data: $data');
+
+          //get properties from data
+          String datetime = data  ['datetime'];
+          String offset = data['utc_offset'].substring(0,3);
+          //print(datetime);
+          //print(offset);
+
+          //create DateTime object
+          DateTime now = DateTime.parse(datetime);
+          now = now.add(Duration(hours: int.parse(offset)));
+
+          // set the time property
+          isDaytime = now.hour >6 && now.hour <20 ? true : false;
+          time = DateFormat.jm().format(now);
+        }
+        catch (e) {
+          print('waleed Cought Error: $e');
+          time = 'Could not get time data';
+        }
+      }
+    }
 
 - - -
 - - -

@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
 
@@ -8,6 +9,7 @@ class WorldTime {
   late String time; // the time in that location
   late String flag; // url to an asset flag icon
   late String url; // location url for api endpoint
+  late bool isDaytime; //true or false if daytime or not
 
   WorldTime({ required this.location, required this.flag, required this.url});
 
@@ -15,13 +17,15 @@ class WorldTime {
 
     try {
       //make the request
-      Response response =  await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+      print('wy before data:');
+      Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+      print('wy aftwer call data:');
       Map data = jsonDecode(response.body);
-      //print(data);
+      print('wy data: $data');
 
       //get properties from data
       String datetime = data  ['datetime'];
-      String offset = data['utc_offset'].substring(1,3);
+      String offset = data['utc_offset'].substring(0,3);
       //print(datetime);
       //print(offset);
 
@@ -30,10 +34,11 @@ class WorldTime {
       now = now.add(Duration(hours: int.parse(offset)));
 
       // set the time property
-      time = now.toString();
+      isDaytime = now.hour >6 && now.hour <20 ? true : false;
+      time = DateFormat.jm().format(now);
     }
     catch (e) {
-      print('Cought Error: $e');
+      print('waleed Cought Error: $e');
       time = 'Could not get time data';
     }
   }
